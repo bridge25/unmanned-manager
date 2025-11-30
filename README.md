@@ -4,7 +4,7 @@
 
 Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템입니다.
 
-![Version](https://img.shields.io/badge/version-1.2.0-blue)
+![Version](https://img.shields.io/badge/version-1.3.0-blue)
 ![Claude](https://img.shields.io/badge/Powered%20by-Claude_Code-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Python](https://img.shields.io/badge/Python-3.9+-yellow)
@@ -15,10 +15,51 @@ Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템
 
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
+| **v1.3.0** | 2025-12-01 | 공부 모드 Hook 추가 (백그라운드 리서치 자동화) |
 | **v1.2.1** | 2025-12-01 | 기록 강제 규칙 강화 (즉시 기록 트리거 추가) |
 | **v1.2.0** | 2025-12-01 | 브리핑 시 Git 상태 자동 수집 Hook 추가 |
 | **v1.1.0** | 2025-11-30 | 세 페르소나 정의, Memento 연동 강화 |
 | **v1.0.0** | 2025-11-30 | 첫 공개 릴리즈 |
+
+---
+
+### v1.3.0 릴리즈 노트 (2025-12-01)
+
+#### 🎓 공부 모드 Hook 추가
+
+"공부하고 있어" 키워드 입력 시 백그라운드 리서치를 자동으로 시작합니다.
+
+**새로운 Hook**
+- `manager/user_prompt__study.py`: 공부 키워드 감지 → 리서치 큐 파싱 → Task(subagent) 실행 강제 지시
+
+**트리거 키워드**
+| 키워드 | 설명 |
+|--------|------|
+| `공부하고 있어` | 리서치 모드 진입 |
+| `공부해` | 리서치 모드 진입 |
+| `리서치 해둬` | 리서치 모드 진입 |
+| `알아봐둬` | 리서치 모드 진입 |
+| `study mode` | 리서치 모드 진입 (영어) |
+
+**동작 방식**
+1. 키워드 감지 → Hook 자동 실행
+2. `current/research_queue.md`에서 대기 주제 파싱
+3. 컨텍스트에 Task(subagent) 실행 지시 주입
+4. Claude가 백그라운드에서 리서치 실행
+5. 완료 후 `current/insights.md`에 결과 기록
+
+**리서치 큐 형식** (`current/research_queue.md`)
+```markdown
+## 대기 중인 주제
+
+- [ ] 주제1 | 관련: 프로젝트명 | 제안일: 2025-12-01 | 사유: 이유
+- [ ] 주제2 | 관련: 일반 | 제안일: 2025-12-01 | 사유: 이유
+```
+
+**특징**
+- Hook이 강제 실행 → Claude 의지와 무관
+- 백그라운드 실행 → 사용자는 다른 작업 가능
+- 리서치 큐 자동 파싱 → 수동 입력 불필요
 
 ---
 
