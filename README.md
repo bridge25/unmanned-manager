@@ -4,7 +4,7 @@
 
 Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템입니다.
 
-![Version](https://img.shields.io/badge/version-1.1.0-blue)
+![Version](https://img.shields.io/badge/version-1.2.0-blue)
 ![Claude](https://img.shields.io/badge/Powered%20by-Claude_Code-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Python](https://img.shields.io/badge/Python-3.9+-yellow)
@@ -15,8 +15,37 @@ Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템
 
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
+| **v1.2.0** | 2025-12-01 | 브리핑 시 Git 상태 자동 수집 Hook 추가 |
 | **v1.1.0** | 2025-11-30 | 세 페르소나 정의, Memento 연동 강화 |
 | **v1.0.0** | 2025-11-30 | 첫 공개 릴리즈 |
+
+---
+
+### v1.2.0 릴리즈 노트 (2025-12-01)
+
+#### 🔧 브리핑 시 Git 상태 자동 수집
+
+"와썹" 입력 시 등록된 프로젝트들의 Git 상태를 자동으로 수집하여 브리핑에 포함합니다.
+
+**새로운 Hook**
+- `manager/user_prompt__briefing.py`: 브리핑 키워드 감지 → Git 상태 수집 → 컨텍스트 주입
+
+**자동 수집 정보**
+| 항목 | 설명 |
+|------|------|
+| 브랜치 | 현재 작업 브랜치 |
+| 상태 | Clean / 미커밋 파일 수 |
+| 최근 커밋 | 마지막 커밋 시간 |
+| 긴급도 | projects.md에서 파싱 |
+
+**프로젝트 소스**
+1. `config.yaml`의 `scan_paths` 설정
+2. `current/projects.md`의 `**Location**` 필드
+
+**특징**
+- AI 의지와 무관하게 Hook이 강제 실행
+- 병렬 Git 명령어 실행으로 빠른 수집 (~1초)
+- 브리핑에 Git 상태 테이블 포함 필수화
 
 ---
 

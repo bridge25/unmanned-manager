@@ -16,7 +16,8 @@
 4. Read `current/profile.md` (Check user profile)
 5. Read `current/projects.md` (Project status)
 6. Read `current/todo.md` (Tasks)
-7. Provide briefing
+7. **⚠️ Check Hook-injected Git status table** (auto-included in context)
+8. Provide briefing (MUST include Git status table)
 
 ### Never do:
 
@@ -49,7 +50,22 @@ current/           <- Current operational data
 .claude/           <- Automation system
 ├── settings.json  <- Hooks configuration
 └── hooks/         <- Automation scripts
+    ├── manager/   <- JARVIS hooks
+    │   └── user_prompt__briefing.py  <- Auto Git scan on "와썹"
+    └── memento/   <- Learning hooks
 
 config.yaml        <- User configuration
 GUIDE.md           <- Full protocol definition
 ```
+
+---
+
+## Hook System
+
+### Auto-executed Hooks:
+
+| Trigger | Hook | Role |
+|---------|------|------|
+| "와썹" input | `manager/user_prompt__briefing.py` | Collect Git status from projects → Inject to context |
+
+**MUST include Hook-injected Git status table in briefing.**

@@ -28,6 +28,10 @@
           {
             "type": "command",
             "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/memento/user_prompt__retrieve.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/manager/user_prompt__briefing.py"
           }
         ]
       }
