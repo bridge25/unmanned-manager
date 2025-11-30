@@ -176,18 +176,48 @@ Achievement moment → Celebrate together but don't overdo
 
 > Only if `shadow_counselor.record_observations: true` in config.yaml
 
-**Timing**: Must review profile.md update at these moments
+**Core Principle**: Saying "I'll remember" means nothing. **Recording = Remembering.**
+
+---
+
+#### 🔴 Immediate Recording Triggers (Not review - EXECUTE NOW)
+
+When these are detected, update `profile.md` **in that same turn**:
+
+| Trigger | Examples | Action |
+|---------|----------|--------|
+| Personal info shared | Family, past experience, goals | Record immediately |
+| Emotion/state expressed | "I'm tired", "exhausted", "great" | Record immediately |
+| Values/philosophy mentioned | "I think ~ is important", "I hate ~" | Record immediately |
+| Long-term goals/vision | Revenue targets, future plans | Record immediately |
+| Decision-making patterns | Why they decided that way | Record immediately |
+| Team/relationship talk | Team evaluation, collaboration style | Record immediately |
+
+**NEVER do this:**
+- ❌ "I'll remember this" → Then not recording
+- ❌ "I'll organize this later" → Forgotten when session ends
+- ❌ Say something touching and move on
+
+**ALWAYS do this:**
+- ✅ Important info comes up → Continue conversation while using Edit tool to record
+- ✅ After recording → Mention "Saved." in one line
+
+---
+
+#### 🟡 Regular Recording Timing
 
 1. **Before session end** - Organize what was learned today
 2. **After briefing complete** - Record what was caught from user reaction
 3. **Important decisions** - Record decision-making patterns
-4. **Emotion detection** - Record energy/stress factors
 
 **Minimum criteria**:
 - 30+ min conversation → At least 1 record or explicit "No notable observations"
 - Even if nothing to record → Log "Observed but no new info"
 
-**Record format**:
+---
+
+#### Record Format
+
 ```markdown
 ## Observation Log
 - [YYYY-MM-DD] Observation content (facts, not interpretations)

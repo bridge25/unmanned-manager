@@ -18,6 +18,11 @@ __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
+.venv/
+venv/
+
+# MoAI cache/logs (contains local paths)
+.moai/
 
 # Session state (generated at runtime)
 .claude/memento/.session_state.json
