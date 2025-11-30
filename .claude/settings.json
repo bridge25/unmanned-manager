@@ -1,0 +1,161 @@
+{
+  "companyAnnouncements": [
+    "🤖 Unmanned Manager v1.0.0 - Your Personal AI Assistant",
+    "📋 Session: Type '와썹' to start briefing",
+    "🔄 Hooks: Auto Git scan, Memento learning, Profile updates",
+    "✅ Features: Project tracking, Priority management, Proactive alerts",
+    "📚 Shadow Counselor: Adaptive communication based on your patterns"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/manager/session_start.py"
+          },
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/memento/session_start__observe.py"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/memento/user_prompt__retrieve.py"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/memento/post_tool__record.py"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/memento/session_end__update.py"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Task",
+      "AskUserQuestion",
+      "Skill",
+      "Read",
+      "Write",
+      "Edit",
+      "MultiEdit",
+      "NotebookEdit",
+      "Grep",
+      "Glob",
+      "TodoWrite",
+      "WebFetch",
+      "WebSearch",
+      "BashOutput",
+      "KillShell",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "mcp__sequential-thinking__*",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(git remote:*)",
+      "Bash(git tag:*)",
+      "Bash(git config:*)",
+      "Bash(rg:*)",
+      "Bash(ls:*)",
+      "Bash(echo:*)",
+      "Bash(which:*)",
+      "Bash(make:*)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Bash(uv:*)",
+      "Bash(pytest:*)",
+      "Bash(npm:*)",
+      "Bash(node:*)",
+      "Bash(gh pr create:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh issue:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(tree:*)",
+      "Bash(diff:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(uniq:*)",
+      "Bash(cat:*)",
+      "Bash(find:*)"
+    ],
+    "ask": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rebase:*)",
+      "Bash(git reset:*)",
+      "Bash(git stash:*)",
+      "Bash(git revert:*)",
+      "Bash(gh pr merge:*)",
+      "Bash(pip install:*)",
+      "Bash(pip3 install:*)",
+      "Bash(rm:*)",
+      "Bash(sudo:*)",
+      "Bash(rm -rf:*)"
+    ],
+    "deny": [
+      "Read(./secrets/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gcloud/**)",
+      "Write(./secrets/**)",
+      "Write(~/.ssh/**)",
+      "Write(~/.aws/**)",
+      "Write(~/.config/gcloud/**)",
+      "Edit(./secrets/**)",
+      "Edit(~/.ssh/**)",
+      "Edit(~/.aws/**)",
+      "Edit(~/.config/gcloud/**)",
+      "Bash(rm -rf /:*)",
+      "Bash(rm -rf /*:*)",
+      "Bash(chmod -R 777:*)",
+      "Bash(dd:*)",
+      "Bash(mkfs:*)",
+      "Bash(fdisk:*)",
+      "Bash(reboot:*)",
+      "Bash(shutdown:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  },
+  "spinnerTipsEnabled": false,
+  "includeCoAuthoredBy": false,
+  "cleanupPeriodDays": 30
+}

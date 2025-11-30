@@ -1,0 +1,72 @@
+# JARVIS Weekly Planner Configuration
+# Edit this file to customize your JARVIS experience
+
+# ============================================
+# User Settings
+# ============================================
+user:
+  # Your name (JARVIS will address you by this)
+  name: "User"
+
+  # How JARVIS should call you
+  # Options: name, sir, boss, or any custom title
+  honorific: "sir"
+
+  # Your timezone
+  timezone: "Asia/Seoul"
+
+# ============================================
+# Project Monitoring
+# ============================================
+projects:
+  # Enable Git-based automatic project scanning
+  git_scan_enabled: true
+
+  # Directories to scan for projects (absolute paths)
+  # JARVIS will check git status, recent commits, etc.
+  scan_paths:
+    - "/path/to/your/projects"
+    # - "/another/project/folder"
+
+  # How many days of inactivity before reminder
+  inactive_alert_days: 7
+
+# ============================================
+# Briefing Settings
+# ============================================
+briefing:
+  # Days before deadline to start alerting
+  deadline_alert_days: 3
+
+  # Show git status in briefing
+  show_git_status: true
+
+  # Show recent commits count
+  show_recent_commits: true
+
+# ============================================
+# Shadow Counselor (Optional)
+# ============================================
+# JARVIS observes communication patterns and adapts responses
+# This is subtle and non-intrusive - JARVIS won't act like a therapist
+shadow_counselor:
+  enabled: true
+
+  # Record observations to profile.md
+  record_observations: true
+
+# ============================================
+# Communication Style
+# ============================================
+communication:
+  # Language: en, ko, ja, etc.
+  language: "en"
+
+  # Style: formal, casual
+  style: "formal"
+
+  # Prefer tables and lists over paragraphs
+  prefer_structured: true
+
+  # Be concise (avoid lengthy explanations)
+  concise: true
