@@ -359,6 +359,46 @@ PM(Project Manager)으로서 여러 Worker Claude에게 작업을 위임합니�
 /pm status   # 전체 상태
 ```
 
+#### LLM 라우팅 (Codex / Gemini)
+
+`/pm` 지시에 특정 키워드가 포함되면 해당 LLM CLI가 자동 호출됩니다:
+
+| 키워드 | 호출되는 CLI | 용도 |
+|--------|-------------|------|
+| `codex`, `/codex`, `코덱스` | `codex exec` | 코드 점검/디버깅/보안 |
+| `gemini`, `/gemini`, `제미나이` | `gemini --yolo` | 2M 컨텍스트 분석 |
+
+**예시:**
+```bash
+/pm 프레젠토 codex로 코드 리뷰해줘
+/pm 해동검도 gemini로 전체 아키텍처 분석해줘
+```
+
+##### ⚠️ 선행 조건 (필수)
+
+Codex/Gemini 기능을 사용하려면 **각자 CLI 설치 + API 키 설정**이 필요합니다:
+
+**Codex (OpenAI):**
+```bash
+# 설치
+npm install -g @openai/codex
+
+# API 키 설정 (~/.bashrc 또는 ~/.zshrc)
+export OPENAI_API_KEY="sk-..."
+```
+
+**Gemini (Google):**
+```bash
+# 설치
+npm install -g @anthropic-ai/gemini-cli
+# 또는 Google 공식 CLI 사용
+
+# API 키 설정
+export GOOGLE_API_KEY="..."
+```
+
+> 💡 **참고**: API 키 없이도 `/pm` 기본 기능(Worker Claude 위임)은 정상 작동합니다. Codex/Gemini는 선택적 고급 기능입니다.
+
 #### 설정 방법
 
 `config.yaml`에 프로젝트 등록:
