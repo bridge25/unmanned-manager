@@ -4,7 +4,7 @@
 
 Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템입니다.
 
-![Version](https://img.shields.io/badge/version-1.3.0-blue)
+![Version](https://img.shields.io/badge/version-1.4.0-blue)
 ![Claude](https://img.shields.io/badge/Powered%20by-Claude_Code-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Python](https://img.shields.io/badge/Python-3.9+-yellow)
@@ -15,11 +15,70 @@ Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템
 
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
+| **v1.4.0** | 2026-01-06 | 🪟 Windows WSL2 지원 + 🎛️ /pm 오케스트레이션 추가 |
 | **v1.3.0** | 2025-12-01 | 공부 모드 Hook 추가 (백그라운드 리서치 자동화) |
 | **v1.2.1** | 2025-12-01 | 기록 강제 규칙 강화 (즉시 기록 트리거 추가) |
 | **v1.2.0** | 2025-12-01 | 브리핑 시 Git 상태 자동 수집 Hook 추가 |
 | **v1.1.0** | 2025-11-30 | 세 페르소나 정의, Memento 연동 강화 |
 | **v1.0.0** | 2025-11-30 | 첫 공개 릴리즈 |
+
+---
+
+### v1.4.0 릴리즈 노트 (2026-01-06)
+
+#### 🪟 Windows WSL2 지원
+
+Windows 사용자도 모든 JARVIS 기능을 사용할 수 있습니다!
+
+**새로운 문서**
+- `WINDOWS-SETUP.md`: WSL2 설치부터 Claude Code 실행까지 단계별 가이드
+
+**지원 기능**
+| 기능 | Windows (WSL2) |
+|------|:--------------:|
+| Deep Research | ✅ |
+| Chaos Engine | ✅ |
+| Profile Learning | ✅ |
+| /pm 오케스트레이션 | ✅ |
+| MindCollab | ✅ |
+
+**설치 방법**
+```powershell
+# 1. WSL2 설치 (PowerShell 관리자 모드)
+wsl --install
+
+# 2. 재부팅 후 Ubuntu에서
+sudo apt install -y tmux nodejs
+npm install -g @anthropic-ai/claude-code
+
+# 3. 프로젝트 경로 (Windows → WSL 변환)
+cd /mnt/c/Users/이름/projects/my-project
+claude
+```
+
+#### 🎛️ /pm 오케스트레이션
+
+여러 프로젝트를 병렬로 관리하는 PM(Project Manager) 기능 추가!
+
+**새로운 문서**
+- `PM-GUIDE.md`: /pm 사용법 완벽 가이드
+
+**새로운 Hooks**
+- `.claude/hooks/pm/tmux_orchestrator.py`: tmux 세션 관리
+- `.claude/hooks/pm/pm_executor.py`: 명령 실행
+- `.claude/hooks/pm/orchestrator_ipc.py`: 프로세스 간 통신
+
+**사용법**
+```
+/pm project1 테스트 실행해줘
+/pm project2 git status 확인
+/pm myapp README 업데이트
+```
+
+**동작 원리**
+```
+PM Claude → tmux send-keys → Worker Claude → 결과 리포트
+```
 
 ---
 
