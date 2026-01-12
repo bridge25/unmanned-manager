@@ -15,12 +15,149 @@ Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템
 
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
+| **v1.5.0** | 2026-01-13 | 🧑‍🤝‍🧑 Team JARVIS Template + 💬 댓글 기반 프로젝트 트래킹 |
 | **v1.4.0** | 2026-01-06 | 🪟 Windows WSL2 지원 + 🎛️ /pm 오케스트레이션 추가 |
 | **v1.3.0** | 2025-12-01 | 공부 모드 Hook 추가 (백그라운드 리서치 자동화) |
 | **v1.2.1** | 2025-12-01 | 기록 강제 규칙 강화 (즉시 기록 트리거 추가) |
 | **v1.2.0** | 2025-12-01 | 브리핑 시 Git 상태 자동 수집 Hook 추가 |
 | **v1.1.0** | 2025-11-30 | 세 페르소나 정의, Memento 연동 강화 |
 | **v1.0.0** | 2025-11-30 | 첫 공개 릴리즈 |
+
+---
+
+### v1.5.0 릴리즈 노트 (2026-01-13)
+
+#### 🧑‍🤝‍🧑 Team JARVIS Template
+
+**팀원들이 자신만의 JARVIS를 만들 수 있는 템플릿 제공!**
+
+이제 수강, 대웅을 포함한 팀원들이 각자의 Windows 환경에서 자비스 시스템을 사용할 수 있습니다.
+
+📁 **위치**: [`team-jarvis-template/`](./team-jarvis-template/)
+
+📚 **상세 가이드**: [`team-jarvis-template/README.md`](./team-jarvis-template/README.md)
+
+**새로운 파일**
+- `team-jarvis-template/` - 즉시 사용 가능한 템플릿
+- `init-jarvis.ps1` - Windows PowerShell 초기화 스크립트 (UTF-8 인코딩)
+- `init-jarvis.sh` - macOS/Linux 초기화 스크립트
+- `.gitattributes` - 줄바꿈 자동 변환 (Windows CRLF ↔ Repo LF)
+- `RELEASE-NOTES.md` - 상세 릴리즈 노트 & 사용 가이드
+
+**Windows 호환성**
+- ✅ UTF-8 인코딩 자동 처리 (한글 깨짐 방지)
+- ✅ PowerShell 스크립트로 원클릭 초기화
+- ✅ Git 줄바꿈 자동 변환 (Mac-Windows 충돌 방지)
+- ✅ VS Code 권장 설정 포함
+
+**빠른 시작 (Windows)**
+
+```powershell
+# 1. 저장소 다운로드
+cd $HOME\Desktop
+git clone https://github.com/bridge25/unmanned-manager.git
+cd unmanned-manager\team-jarvis-template
+
+# 2. 자신의 폴더로 복사
+Copy-Item -Path . -Destination "$HOME\Desktop\my-jarvis" -Recurse
+cd $HOME\Desktop\my-jarvis
+
+# 3. 초기화 실행
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+.\init-jarvis.ps1
+
+# 4. MindCollab 설치 & 로그인
+npm install -g @mindcollab/cli
+mc auth login --code YOUR-CODE
+
+# 5. 프로젝트 선택 & 시작
+mc init
+code .
+# Claude Code에서 "와썹" 입력
+```
+
+**macOS 빠른 시작**
+
+```bash
+# 1-2. 저장소 다운로드 & 복사
+cp -r unmanned-manager/team-jarvis-template ~/Desktop/my-jarvis
+cd ~/Desktop/my-jarvis
+
+# 3. 초기화
+chmod +x init-jarvis.sh
+./init-jarvis.sh
+
+# 4-5. MindCollab 설정
+mc auth login --code YOUR-CODE
+mc init
+claude
+# "와썹" 입력
+```
+
+---
+
+#### 💬 댓글 기반 프로젝트 트래킹 (Comment-based Project Tracking)
+
+**MindCollab CLI에 `--author` 옵션 추가!**
+
+이제 JARVIS가 작성하는 댓글과 Tony가 작성하는 댓글을 구분할 수 있습니다.
+
+**새로운 기능**
+```bash
+# JARVIS가 작성
+mc comment N45 "작업 시작합니다" --author "JARVIS"
+
+# Tony가 작성 (기본값)
+mc comment N45 "이 부분 수정해줘"
+
+# 댓글 조회
+mc comments N45
+
+# 노드 상세 (댓글 포함)
+mc show N45
+```
+
+**효과**
+- ✅ Tony ↔ JARVIS 대화 구분 가능
+- ✅ 브리핑 시 노드 댓글 확인으로 입체적 현황 파악
+- ✅ 작업 진행 상황 리얼타임 트래킹
+
+**자비스 행동 규칙 (자동화)**
+- 작업 시작 시 → 댓글로 시작 알림
+- 진행 중 체크포인트 → 단계별 완료 현황 기록
+- 블로커 발견 시 → 즉시 댓글로 알림
+- 작업 완료 시 → 결과물 요약 기록
+
+**브리핑 통합**
+
+이제 "와썹" 브리핑 시 주요 노드의 댓글을 자동으로 확인하여:
+- Tony님의 최근 피드백
+- 블로커 발견 사항
+- 완료된 체크포인트
+- 다음 액션 아이템
+
+을 포함한 입체적 프로젝트 현황을 제공합니다.
+
+**사용 예시**
+
+```bash
+# 작업 흐름
+mc start N45                                         # 작업 시작
+mc comment N45 "작업 시작합니다" --author "JARVIS"  # 시작 알림
+
+mc comment N45 "Step 1 완료" --author "JARVIS"      # 체크포인트
+
+mc comment N45 "블로커: API 크레딧 부족" --author "JARVIS"  # 블로커
+# → Tony가 웹에서 확인 후 댓글 작성
+
+mc comment N45 "완료했습니다. 결과: ..." --author "JARVIS"  # 완료 보고
+mc done N45 --pr                                     # PR 생성
+```
+
+**문서 업데이트**
+- `CLAUDE.md` - 브리핑 시 댓글 확인 규칙 추가
+- `current/pm-context.md` - 댓글 트래킹 가이드 추가
+- `team-jarvis-template/` - 댓글 사용법 포함
 
 ---
 
