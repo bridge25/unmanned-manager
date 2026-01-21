@@ -15,6 +15,7 @@ Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템
 
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
+| **v1.6.0** | 2026-01-22 | 🔌 JARVIS SDK (IPC v2.1) - Worker 이벤트 통신 패키지 |
 | **v1.5.0** | 2026-01-13 | 🧑‍🤝‍🧑 Team JARVIS Template + 💬 댓글 기반 프로젝트 트래킹 |
 | **v1.4.0** | 2026-01-06 | 🪟 Windows WSL2 지원 + 🎛️ /pm 오케스트레이션 추가 |
 | **v1.3.0** | 2025-12-01 | 공부 모드 Hook 추가 (백그라운드 리서치 자동화) |
@@ -22,6 +23,59 @@ Claude Code를 개인 비서 AI로 만들어주는 프로젝트 관리 시스템
 | **v1.2.0** | 2025-12-01 | 브리핑 시 Git 상태 자동 수집 Hook 추가 |
 | **v1.1.0** | 2025-11-30 | 세 페르소나 정의, Memento 연동 강화 |
 | **v1.0.0** | 2025-11-30 | 첫 공개 릴리즈 |
+
+---
+
+### v1.6.0 릴리즈 노트 (2026-01-22)
+
+#### 🔌 JARVIS SDK (IPC v2.1)
+
+**Worker가 PM에게 작업 상태를 실시간 전달하는 Python SDK!**
+
+Claude Code Worker에서 작업 시작/완료/블로커를 PM에게 자동 알림합니다.
+
+📁 **위치**: [`packages/jarvis-sdk/`](./packages/jarvis-sdk/)
+
+📚 **상세 가이드**: [`packages/jarvis-sdk/README.md`](./packages/jarvis-sdk/README.md)
+
+**특징**
+- ✅ Context Manager 지원 (`with` 문으로 자동 에러 처리)
+- ✅ Fail-open 모드 (API 실패해도 작업 계속)
+- ✅ Windows/Mac/Linux 호환
+- ✅ Zero Dependencies (표준 라이브러리만 사용)
+
+**빠른 시작 (Windows)**
+
+```powershell
+# 1. SDK 복사
+Copy-Item -Path "packages\jarvis-sdk" -Destination "your-project\jarvis_sdk" -Recurse
+
+# 2. 환경변수 설정
+$env:JARVIS_API_KEY = "<팀내_공유_키_사용>"
+$env:JARVIS_API_URL = "https://mindcollab-web-production.up.railway.app/api"
+$env:JARVIS_WORKER_ID = "your-name"
+```
+
+**사용 예시**
+
+```python
+from jarvis_sdk import JarvisTask
+
+with JarvisTask(task_id="my_task", worker_id="sookang") as task:
+    task.start("데이터 처리 시작")
+    # ... 작업 수행 ...
+    task.complete({"result": "ok"}, summary="완료!")
+
+# 예외 발생 시 자동으로 PM에게 블로커 알림
+```
+
+**아키텍처**
+
+```
+Worker Claude ──► JARVIS SDK ──► MindCollab API ──► PM Claude
+                                       │
+                                       └──► Push Daemon ──► 실시간 알림
+```
 
 ---
 
