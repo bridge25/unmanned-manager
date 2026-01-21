@@ -4,6 +4,25 @@
 
 ---
 
+## ⚠️ 사전 요구사항: 자신의 MindCollab 인스턴스
+
+**JARVIS SDK를 사용하려면 먼저 자신의 MindCollab 인스턴스가 필요합니다!**
+
+각 사용자는 독립적인 MindCollab 환경을 가집니다:
+- 자신의 MindCollab 배포 (Railway 등)
+- 자신의 API 엔드포인트 URL
+- 자신의 API Key
+
+```
+Tony님 MindCollab ─────► Tony님 PM Claude
+수강님 MindCollab ─────► 수강님 PM Claude  (각자 독립!)
+대웅님 MindCollab ─────► 대웅님 PM Claude
+```
+
+**MindCollab 배포 가이드**: [mindcollab 저장소](https://github.com/bridge25/mindcollab) 참조
+
+---
+
 ## 🔌 JARVIS SDK란?
 
 **Claude Code Worker에서 작업 진행 상황을 PM(Project Manager)에게 자동으로 알려주는 통신 SDK입니다.**
@@ -90,10 +109,12 @@ dir your-project\jarvis_sdk
 
 ### 3단계: 환경변수 설정
 
+⚠️ **중요: 자신의 MindCollab 인스턴스 정보를 사용하세요!**
+
 **PowerShell (임시 설정)**
 ```powershell
-$env:JARVIS_API_KEY = "<팀내_공유_키_사용>"
-$env:JARVIS_API_URL = "https://mindcollab-web-production.up.railway.app/api"
+$env:JARVIS_API_KEY = "<자신의_MindCollab_API_키>"
+$env:JARVIS_API_URL = "<자신의_MindCollab_URL>/api"  # 예: https://your-mindcollab.up.railway.app/api
 $env:JARVIS_WORKER_ID = "sookang"  # 본인 이름으로 변경!
 ```
 
@@ -102,8 +123,10 @@ $env:JARVIS_WORKER_ID = "sookang"  # 본인 이름으로 변경!
 2. "환경 변수" 버튼 클릭
 3. "사용자 변수"에서 "새로 만들기":
    - 변수 이름: `JARVIS_API_KEY`
-   - 변수 값: `<팀내_공유_키_사용>`
-4. 같은 방식으로 `JARVIS_API_URL`, `JARVIS_WORKER_ID` 추가
+   - 변수 값: `<자신의_MindCollab_API_키>`
+4. 같은 방식으로 추가:
+   - `JARVIS_API_URL` = `<자신의_MindCollab_URL>/api`
+   - `JARVIS_WORKER_ID` = `본인이름`
 
 ### 4단계: 테스트
 
@@ -121,9 +144,10 @@ python -c "from jarvis_sdk import JarvisTask; print('SDK 로드 성공!')"
 cp -r unmanned-manager/packages/jarvis-sdk ~/Desktop/your-project/jarvis_sdk
 
 # 2. 환경변수 설정 (~/.zshrc 또는 ~/.bashrc에 추가)
-echo 'export JARVIS_API_KEY="<팀내_공유_키_사용>"' >> ~/.zshrc
-echo 'export JARVIS_API_URL="https://mindcollab-web-production.up.railway.app/api"' >> ~/.zshrc
-echo 'export JARVIS_WORKER_ID="tony"' >> ~/.zshrc
+# ⚠️ 자신의 MindCollab 인스턴스 정보로 변경!
+echo 'export JARVIS_API_KEY="<자신의_MindCollab_API_키>"' >> ~/.zshrc
+echo 'export JARVIS_API_URL="<자신의_MindCollab_URL>/api"' >> ~/.zshrc
+echo 'export JARVIS_WORKER_ID="본인이름"' >> ~/.zshrc
 source ~/.zshrc
 
 # 3. 테스트
@@ -290,19 +314,25 @@ A: MindCollab의 프로젝트 노드 ID입니다. 선택사항이며,
 
 ---
 
-## 🔑 팀원 환경변수 값
+## 🔑 환경변수 설정 예시
 
-| 팀원 | JARVIS_WORKER_ID |
-|------|------------------|
-| Tony | `tony` |
-| 수강 | `sookang` |
-| 대웅 | `daewoong` |
+각자 **자신의 MindCollab 인스턴스** 정보를 사용합니다:
 
-**공통 값:**
+| 환경변수 | 값 |
+|---------|-----|
+| `JARVIS_API_KEY` | 자신의 MindCollab에서 설정한 API 키 |
+| `JARVIS_API_URL` | 자신의 MindCollab URL + `/api` |
+| `JARVIS_WORKER_ID` | 본인 이름 (예: `sookang`, `daewoong`) |
+
+**예시 (수강님의 경우):**
 ```
-JARVIS_API_KEY = <팀내_공유_키_사용>
-JARVIS_API_URL = https://mindcollab-web-production.up.railway.app/api
+JARVIS_API_KEY = sookang-jarvis-key-2026
+JARVIS_API_URL = https://sookang-mindcollab.up.railway.app/api
+JARVIS_WORKER_ID = sookang
 ```
+
+⚠️ **MindCollab 인스턴스가 없으면 먼저 배포하세요!**
+→ [mindcollab 저장소](https://github.com/bridge25/mindcollab) 참조
 
 ---
 
